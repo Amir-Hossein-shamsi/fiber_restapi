@@ -1,23 +1,17 @@
 package routes
 
 import (
+	"github.com/Amir-Hossein-shamsi/fiber-resapi/src/routes/controllers"
 	"github.com/gofiber/fiber/v2"
 )
 
-// type responseDefulat struct {
-// 	status  int
-// 	message string
-// }
+type Connetor struct {
+	Handler *controllers.Handller
+}
 
-func Routes(app *fiber.App) {
-
-	app.Get("/api/status", func(c *fiber.Ctx) error {
-		c.SendStatus(200)
-		return c.JSON("Ok Get")
-	})
-	app.Post("/api/book", func(c *fiber.Ctx) error {
-		c.SendStatus(200)
-		return c.JSON("Ok POST")
-	})
+func (c *Connetor) Routes(app *fiber.App) {
+	api := app.Group("/api")
+	api.Post("/create", c.Handler.CreateUser)
+	api.Get("/getAll", c.Handler.GetUsers)
 
 }
